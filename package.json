@@ -1,0 +1,19 @@
+{
+  "name": "bbc-react-scraper",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/jaseat/bbc-react-scraper.git",
+  "author": "jaseat <jaseat@users.noreply.github.com>",
+  "license": "MIT",
+  "scripts": {
+    "client": "cd client && yarn start",
+    "server": "nodemon src/server.js",
+    "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
+  },
+  "dependencies": {
+    "express": "^4.16.3"
+  },
+  "devDependencies": {
+    "concurrently": "^3.6.0"
+  }
+}

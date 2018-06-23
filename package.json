@@ -10,7 +10,8 @@
     "client": "cd client && yarn start",
     "server": "nodemon src/server.js",
     "dev": "set NODE_ENV=development&&concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
-    "install": "cd client && yarn"
+    "install": "cd client && yarn",
+    "heroku-postbuild": "cd client && yarn && yarn --only=dev --no-shrinkwrap && yarn build"
   },
   "dependencies": {
     "cheerio": "^1.0.0-rc.2",

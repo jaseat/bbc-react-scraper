@@ -1,23 +1,43 @@
-var express = require('express');
-var bodyParser = require('body-parser');
-var path = require('path');
-var logger = require('morgan');
+const express = require('express');
+const path = require('path');
+const logger = require('morgan');
 
-var mongoose = require('./connection');
-var Article = require('./models/Articles');
+const mongoose = require('./connection');
+const Article = require('./models/Articles');
 
-var htmlRouter = require('./routes/html');
+const htmlRouter = require('./routes/html');
+const apiRouter = require('./routes/api');
 
-var app = express();
-const PORT = process.env.PORT || 3000;
+const app = express();
+const PORT = process.env.PORT || 3001;
 
 app.use(logger('tiny'));
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+
+app.use(express.static(path.join(__dirname, '/../client/build')));
+
+if (process.env.NODE_ENV === 'development') {
+  app.use((req, res, next) => {
+    const allowed_header = ['http://localhost:3000'];
+    const origin = req.headers.origin;
+    if (allowed_header.indexOf(origin) > -1) {
+      res.header('Access-Control-Allow-Origin', origin);
+    }
+    res.header(
+      'Access-Control-Allow-Headers',
+      'Origin, X-Requested-With, Content-Type, ideaJWT, Accept'
+    );
+    res.header(
+      'Access-Control-Allow-Methods',
+      'POST, GET, OPTIONS, PUT, DELETE'
+    );
+    next();
+  });
+}
 
 app.use('/', htmlRouter);
-
-app.use(express.static(path.join(__dirname, 'public')));
+app.use('/api', apiRouter);
 
 app.listen(PORT);

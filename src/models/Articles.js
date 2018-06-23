@@ -4,32 +4,19 @@ var Schema = mongoose.Schema;
 var commentSchema = require('./Comments');
 
 var articleSchema = new Schema({
-  headline: {
+  title: {
     type: String,
     required: true,
     unique: true,
-  },
-  summary: {
-    type: String,
-    required: false,
   },
   url: {
     type: String,
     required: true,
   },
-  source: {
-    type: String,
-    required: true,
-  },
-  image: {
-    type: String,
-    required: false,
-  },
-  scrapeDate: {
+  date: {
     type: Date,
     default: Date.now(),
   },
-  comments: [commentSchema],
 });
 
 // articleSchema.pre("save", function(next) {

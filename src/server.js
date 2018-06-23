@@ -37,7 +37,7 @@ if (process.env.NODE_ENV === 'development') {
   });
 }
 
-app.use('/', htmlRouter);
 app.use('/api', apiRouter);
+app.use('/', htmlRouter);
 
 app.listen(PORT);

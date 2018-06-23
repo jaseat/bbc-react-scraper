@@ -31,7 +31,7 @@ class ArticleList extends Component {
     return (
       <div>
         <h2>{this.props.header}</h2>
-        {this.renderArticles()}
+        {this.props.articles && this.renderArticles()}
       </div>
     );
   }
